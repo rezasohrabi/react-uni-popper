@@ -12,7 +12,15 @@
     "build-storybook": "storybook build"
   },
   "keywords": [
-    "headlessui/tooltip"
+    "tooltip",
+    "react-tooltip",
+    "headless-tooltip",
+    "headlessui-tooltip",
+    "headlessui-react-tooltip",
+    "tooltip-component",
+    "react-component",
+    "component",
+    "react"
   ],
   "author": "Reza Sohrabi",
   "license": "MIT",
