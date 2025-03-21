@@ -12,7 +12,21 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "esModuleInterop": true,
-    "baseUrl": "src/"
+    "baseUrl": "src/",
+    "allowJs": false,
+    "maxNodeModuleJsDepth": 1,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outDir": "dist",
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "allowUnreachableCode": false,
+    "skipLibCheck": true
   },
   "exclude": ["node_modules", "dist"],
   "types": ["typePatches"]
