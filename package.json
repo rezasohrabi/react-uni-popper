@@ -4,6 +4,7 @@
   "description": "headless tooltip for projects that leverages headlessui/react",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
+  "type": "module",
   "files": [
     "build"
   ],
@@ -11,6 +12,7 @@
   "scripts": {
     "build": "rimraf dist && rollup -c rollup.config.build.mjs",
     "dev": "cross-env NODE_ENV=development rollup -c rollup.config.dev.mjs -w",
+    "test": "vitest --config vitest.config.ts",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "deploy-storybook": "gh-pages -d storybook-static"
@@ -52,11 +54,18 @@
     "@storybook/react": "8.6.7",
     "@storybook/react-vite": "8.6.7",
     "@storybook/test": "8.6.7",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0",
+    "@testing-library/user-event": "^14.6.1",
     "@types/react": "^19.0.12",
     "cross-env": "^7.0.3",
     "gh-pages": "^6.3.0",
+    "globals": "^16.0.0",
+    "jsdom": "^26.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "regenerator-runtime": "^0.14.1",
     "rimraf": "^6.0.1",
     "rollup": "^4.36.0",
     "rollup-plugin-dts": "^6.2.0",
@@ -67,6 +76,7 @@
     "rollup-plugin-visualizer": "^5.14.0",
     "storybook": "8.6.7",
     "tslib": "^2.8.1",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.2",
+    "vitest": "^3.0.9"
   }
 }
