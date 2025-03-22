@@ -1,5 +1,5 @@
 dist
 node_modules
-
+coverage
 *storybook.log
 storybook-static
