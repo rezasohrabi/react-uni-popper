@@ -39,6 +39,7 @@ export default [
         minimize: true,
       }),
       terser(),
+
       json(),
     ],
     external: ["react", "react-dom"],
