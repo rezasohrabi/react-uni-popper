@@ -12,7 +12,8 @@
   "scripts": {
     "build": "rimraf dist && rollup -c rollup.config.build.mjs",
     "dev": "cross-env NODE_ENV=development rollup -c rollup.config.dev.mjs -w",
-    "test": "vitest --config vitest.config.ts",
+    "test": "vitest run --config vitest.config.ts",
+    "test:watch": "vitest --config vitest.config.ts --watch",
     "lint": "eslint --ext .ts,.tsx src",
     "lint:fix": "eslint --ext .ts,.tsx src --fix",
     "storybook": "storybook dev -p 6006",
