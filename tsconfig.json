@@ -18,6 +18,10 @@
     "dist",
     "storybook-static",
     "src/**/*.stories.ts",
-    "src/**/*.test.tsx"
+    "src/**/*.test.tsx",
+    ".lintstagedrc",
+    ".storybook",
+    ".husky",
+    "public"
   ]
 }
