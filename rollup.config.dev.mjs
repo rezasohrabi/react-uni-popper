@@ -51,7 +51,6 @@ export default [
         contentBase: ["dist", "."],
         port: 3000,
       }),
-
       livereload({
         watch: "dist",
         port: 3000,
