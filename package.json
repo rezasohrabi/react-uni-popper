@@ -96,5 +96,8 @@
     "typescript": "^5.8.2",
     "typescript-eslint": "^8.27.0",
     "vitest": "^3.0.9"
+  },
+  "dependencies": {
+    "@floating-ui/react-dom": "^2.1.2"
   }
 }
