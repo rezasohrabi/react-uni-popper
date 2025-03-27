@@ -40,12 +40,7 @@ export default [
           "**/*.stories.tsx",
         ],
       }),
-      postcss({
-        extensions: [".css"],
-        extract: false,
-        inject: true,
-        minimize: true,
-      }),
+      postcss(),
       serve({
         open: true,
         contentBase: ["dist", "."],
