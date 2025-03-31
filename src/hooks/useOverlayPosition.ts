@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useLayoutEffect, useState } from "react";
-import { PositionType } from "./types";
+import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
+import { PositionType } from '../types';
 
 interface useOverlayPositionProps {
   triggerRef: React.RefObject<HTMLElement>;
@@ -31,19 +31,19 @@ export function useOverlayPosition({
       left = 0;
 
     switch (position) {
-      case "left":
+      case 'left':
         top = triggerRect.top + triggerRect.height / 2 - tooltipRect.height / 2;
         left = triggerRect.left - tooltipRect.width - offset;
         break;
-      case "right":
+      case 'right':
         top = triggerRect.top + triggerRect.height / 2 - tooltipRect.height / 2;
         left = triggerRect.right + offset;
         break;
-      case "bottom":
+      case 'bottom':
         top = triggerRect.bottom + offset;
         left = triggerRect.left + triggerRect.width / 2 - tooltipRect.width / 2;
         break;
-      case "top":
+      case 'top':
       default:
         top = triggerRect.top - tooltipRect.height - offset;
         left = triggerRect.left + triggerRect.width / 2 - tooltipRect.width / 2;
@@ -52,22 +52,22 @@ export function useOverlayPosition({
     const clientWidth = document.documentElement.clientWidth;
     const clientHeight = document.documentElement.clientHeight;
 
-    if (position === "top" && top < 0) {
+    if (position === 'top' && top < 0) {
       top = triggerRect.bottom + offset;
     } else if (
-      position === "bottom" &&
+      position === 'bottom' &&
       top + tooltipRect.height > clientHeight
     ) {
       top = triggerRect.top - tooltipRect.height - offset;
     }
 
-    if (position === "left" && left < 0) {
+    if (position === 'left' && left < 0) {
       left = triggerRect.right + offset;
-    } else if (position === "right" && left + tooltipRect.width > clientWidth) {
+    } else if (position === 'right' && left + tooltipRect.width > clientWidth) {
       left = triggerRect.left - tooltipRect.width - offset;
     }
 
-    if (position === "top" || position === "bottom") {
+    if (position === 'top' || position === 'bottom') {
       if (left < 0) {
         left = 0;
       } else if (left + tooltipRect.width > clientWidth) {
@@ -75,7 +75,7 @@ export function useOverlayPosition({
       }
     }
 
-    if (position === "left" || position === "right") {
+    if (position === 'left' || position === 'right') {
       if (top < 0) {
         top = 0;
       } else if (top + tooltipRect.height > clientHeight) {
@@ -93,12 +93,12 @@ export function useOverlayPosition({
   }, []);
 
   useEffect(() => {
-    window.addEventListener("scroll", updatePosition);
-    window.addEventListener("resize", updatePosition);
+    window.addEventListener('scroll', updatePosition);
+    window.addEventListener('resize', updatePosition);
 
     return () => {
-      window.removeEventListener("scroll", updatePosition);
-      window.removeEventListener("resize", updatePosition);
+      window.removeEventListener('scroll', updatePosition);
+      window.removeEventListener('resize', updatePosition);
     };
   }, []);
 

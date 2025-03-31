@@ -1,12 +1,12 @@
 import React, {
   useState,
-  useEffect,
   cloneElement,
   ReactElement,
   isValidElement,
   HTMLAttributes,
+  useCallback,
 } from 'react';
-import Portal from './Portal';
+import Portal from './components/Portal';
 import { PositionType } from './types';
 import {
   useFloating,
@@ -14,6 +14,7 @@ import {
   offset as offsetMiddleware,
   shift,
 } from '@floating-ui/react-dom';
+import useOnEscape from './hooks/useOnEscape';
 
 export interface TooltipProps
   extends Omit<HTMLAttributes<HTMLDivElement>, 'content'> {
@@ -57,18 +58,10 @@ const Tooltip = ({
     <span>{children}</span>
   );
 
-  const showTooltip = () => setIsOpen(true);
-  const hideTooltip = () => setIsOpen(false);
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.key === 'Escape') hideTooltip();
-    };
-    document.addEventListener('keydown', handleKeyDown);
+  const showTooltip = useCallback(() => setIsOpen(true), []);
+  const hideTooltip = useCallback(() => setIsOpen(false), []);
 
-    return () => {
-      document.addEventListener('keydown', handleKeyDown);
-    };
-  }, []);
+  useOnEscape(hideTooltip, isOpen);
 
   const childrenProps = {
     ref: (node) => {
@@ -79,6 +72,7 @@ const Tooltip = ({
     onMouseLeave: hideTooltip,
     onFocus: showTooltip,
     onBlur: hideTooltip,
+    tabIndex: 0,
   };
 
   const Trigger = cloneElement(childrenElement, childrenProps);
