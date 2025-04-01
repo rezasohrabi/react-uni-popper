@@ -15,6 +15,7 @@ import {
   shift,
 } from '@floating-ui/react-dom';
 import useOnEscape from './hooks/useOnEscape';
+import { getId } from './utils';
 
 export interface TooltipProps
   extends Omit<HTMLAttributes<HTMLDivElement>, 'content'> {
@@ -24,6 +25,8 @@ export interface TooltipProps
   placement?: PositionType;
   offset?: number;
   zIndex?: number;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
 }
 
 const Tooltip = ({
@@ -33,11 +36,11 @@ const Tooltip = ({
   className = '',
   offset = 4,
   zIndex,
+  open,
+  onOpenChange,
   ...props
 }: TooltipProps): ReactElement => {
-  const [tooltipId] = useState(
-    () => `tooltip-${Math.random().toString(36).substr(2, 9)}`,
-  );
+  const [tooltipId] = useState(getId());
   const [isOpen, setIsOpen] = useState(false);
 
   const { floatingStyles, refs } = useFloating({
@@ -58,20 +61,38 @@ const Tooltip = ({
     <span>{children}</span>
   );
 
-  const showTooltip = useCallback(() => setIsOpen(true), []);
-  const hideTooltip = useCallback(() => setIsOpen(false), []);
+  const isControlled = open !== undefined;
+  const isOpenState = isControlled ? open : isOpen;
 
-  useOnEscape(hideTooltip, isOpen);
+  const handleClose = useCallback(() => {
+    if (!isControlled) {
+      setIsOpen(false);
+    }
+    if (onOpenChange) {
+      onOpenChange(false);
+    }
+  }, [isControlled]);
+
+  const handleOpen = useCallback(() => {
+    if (!isControlled) {
+      setIsOpen(true);
+    }
+    if (onOpenChange) {
+      onOpenChange(true);
+    }
+  }, [isControlled]);
+
+  useOnEscape(handleClose, isOpenState);
 
   const childrenProps = {
     ref: (node) => {
       refs.setReference(node);
     },
     'aria-describedby': tooltipId,
-    onMouseOver: showTooltip,
-    onMouseLeave: hideTooltip,
-    onFocus: showTooltip,
-    onBlur: hideTooltip,
+    onMouseOver: handleOpen,
+    onMouseLeave: handleClose,
+    onFocus: handleOpen,
+    onBlur: handleClose,
     tabIndex: 0,
   };
 
@@ -80,7 +101,7 @@ const Tooltip = ({
   return (
     <>
       {Trigger}
-      {isOpen && content && (
+      {isOpenState && content && (
         <Portal>
           <div
             className="popper"
