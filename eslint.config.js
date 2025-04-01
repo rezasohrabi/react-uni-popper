@@ -7,6 +7,7 @@ import reactHooks from 'eslint-plugin-react-hooks';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
 import configPrettier from 'eslint-config-prettier';
 import eslintPluginPrettier from 'eslint-plugin-prettier';
+import storybook from 'eslint-plugin-storybook';
 
 export default defineConfig([
   {
@@ -39,13 +40,12 @@ export default defineConfig([
       react.configs.flat.recommended,
       jsxA11y.flatConfigs.recommended,
       reactHooks.configs['recommended-latest'],
+      storybook.configs['flat/recommended'],
       configPrettier,
     ],
     ignores: [
       '**/node_modules/**',
       '**/dist/**',
-      '**/*.stories.ts',
-      '**/*.stories.tsx',
       '**/*.test.ts',
       '**/*.test.tsx',
     ],
