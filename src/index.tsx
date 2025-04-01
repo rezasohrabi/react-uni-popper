@@ -16,7 +16,7 @@ import {
   shift,
 } from '@floating-ui/react-dom';
 import useOnEscape from './hooks/useOnEscape';
-import getReactElementRef, { getId } from './utils';
+import { getId, getReactElementRef } from './utils';
 
 export interface TooltipProps
   extends Omit<HTMLAttributes<HTMLDivElement>, 'content'> {
