@@ -5,6 +5,7 @@ import React, {
   isValidElement,
   HTMLAttributes,
   useCallback,
+  useMemo,
 } from 'react';
 import Portal from './components/Portal';
 import { PositionType } from './types';
@@ -15,7 +16,7 @@ import {
   shift,
 } from '@floating-ui/react-dom';
 import useOnEscape from './hooks/useOnEscape';
-import { getId } from './utils';
+import getReactElementRef, { getId } from './utils';
 
 export interface TooltipProps
   extends Omit<HTMLAttributes<HTMLDivElement>, 'content'> {
@@ -55,10 +56,9 @@ const Tooltip = ({
     ],
   });
 
-  const childrenElement = isValidElement(children) ? (
-    children
-  ) : (
-    <span>{children}</span>
+  const childrenElement = useMemo(
+    () => (isValidElement(children) ? children : <span>{children}</span>),
+    [children],
   );
 
   const isControlled = open !== undefined;
@@ -84,17 +84,39 @@ const Tooltip = ({
 
   useOnEscape(handleClose, isOpenState);
 
-  const childrenProps = {
-    ref: (node) => {
-      refs.setReference(node);
-    },
-    'aria-describedby': tooltipId,
-    onMouseOver: handleOpen,
-    onMouseLeave: handleClose,
-    onFocus: handleOpen,
-    onBlur: handleClose,
-    tabIndex: 0,
-  };
+  const childrenProps = useMemo(
+    () => ({
+      ref: (node) => {
+        refs.setReference(node);
+        const childRef = getReactElementRef(childrenElement);
+
+        if (typeof childRef === 'function') {
+          childRef(node);
+        } else if (childRef && 'current' in childRef) {
+          childRef.current = node;
+        }
+      },
+      'aria-describedby': tooltipId,
+      onMouseOver: () => {
+        handleOpen();
+        childrenElement?.props.onMouseOver?.();
+      },
+      onMouseLeave: () => {
+        handleClose();
+        childrenElement?.props.onMouseLeave?.();
+      },
+      onFocus: () => {
+        handleOpen();
+        childrenElement?.props.onFocus?.();
+      },
+      onBlur: () => {
+        handleClose();
+        childrenElement?.props.onBlur?.();
+      },
+      tabIndex: 0,
+    }),
+    [childrenElement, handleClose, handleOpen, refs, tooltipId],
+  );
 
   const Trigger = cloneElement(childrenElement, childrenProps);
 
