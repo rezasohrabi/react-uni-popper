@@ -1,12 +1,13 @@
 import React, {
   useState,
-  useEffect,
   cloneElement,
   ReactElement,
   isValidElement,
   HTMLAttributes,
+  useCallback,
+  useMemo,
 } from 'react';
-import Portal from './Portal';
+import Portal from './components/Portal';
 import { PositionType } from './types';
 import {
   useFloating,
@@ -14,6 +15,8 @@ import {
   offset as offsetMiddleware,
   shift,
 } from '@floating-ui/react-dom';
+import useOnEscape from './hooks/useOnEscape';
+import getReactElementRef, { getId } from './utils';
 
 export interface TooltipProps
   extends Omit<HTMLAttributes<HTMLDivElement>, 'content'> {
@@ -23,6 +26,8 @@ export interface TooltipProps
   placement?: PositionType;
   offset?: number;
   zIndex?: number;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
 }
 
 const Tooltip = ({
@@ -32,11 +37,11 @@ const Tooltip = ({
   className = '',
   offset = 4,
   zIndex,
+  open,
+  onOpenChange,
   ...props
 }: TooltipProps): ReactElement => {
-  const [tooltipId] = useState(
-    () => `tooltip-${Math.random().toString(36).substr(2, 9)}`,
-  );
+  const [tooltipId] = useState(getId());
   const [isOpen, setIsOpen] = useState(false);
 
   const { floatingStyles, refs } = useFloating({
@@ -51,42 +56,74 @@ const Tooltip = ({
     ],
   });
 
-  const childrenElement = isValidElement(children) ? (
-    children
-  ) : (
-    <span>{children}</span>
+  const childrenElement = useMemo(
+    () => (isValidElement(children) ? children : <span>{children}</span>),
+    [children],
   );
 
-  const showTooltip = () => setIsOpen(true);
-  const hideTooltip = () => setIsOpen(false);
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.key === 'Escape') hideTooltip();
-    };
-    document.addEventListener('keydown', handleKeyDown);
+  const isControlled = open !== undefined;
+  const isOpenState = isControlled ? open : isOpen;
 
-    return () => {
-      document.addEventListener('keydown', handleKeyDown);
-    };
-  }, []);
+  const handleClose = useCallback(() => {
+    if (!isControlled) {
+      setIsOpen(false);
+    }
+    if (onOpenChange) {
+      onOpenChange(false);
+    }
+  }, [isControlled]);
 
-  const childrenProps = {
-    ref: (node) => {
-      refs.setReference(node);
-    },
-    'aria-describedby': tooltipId,
-    onMouseOver: showTooltip,
-    onMouseLeave: hideTooltip,
-    onFocus: showTooltip,
-    onBlur: hideTooltip,
-  };
+  const handleOpen = useCallback(() => {
+    if (!isControlled) {
+      setIsOpen(true);
+    }
+    if (onOpenChange) {
+      onOpenChange(true);
+    }
+  }, [isControlled]);
+
+  useOnEscape(handleClose, isOpenState);
+
+  const childrenProps = useMemo(
+    () => ({
+      ref: (node) => {
+        refs.setReference(node);
+        const childRef = getReactElementRef(childrenElement);
+
+        if (typeof childRef === 'function') {
+          childRef(node);
+        } else if (childRef && 'current' in childRef) {
+          childRef.current = node;
+        }
+      },
+      'aria-describedby': tooltipId,
+      onMouseOver: () => {
+        handleOpen();
+        childrenElement?.props.onMouseOver?.();
+      },
+      onMouseLeave: () => {
+        handleClose();
+        childrenElement?.props.onMouseLeave?.();
+      },
+      onFocus: () => {
+        handleOpen();
+        childrenElement?.props.onFocus?.();
+      },
+      onBlur: () => {
+        handleClose();
+        childrenElement?.props.onBlur?.();
+      },
+      tabIndex: 0,
+    }),
+    [childrenElement, handleClose, handleOpen, refs, tooltipId],
+  );
 
   const Trigger = cloneElement(childrenElement, childrenProps);
 
   return (
     <>
       {Trigger}
-      {isOpen && content && (
+      {isOpenState && content && (
         <Portal>
           <div
             className="popper"
