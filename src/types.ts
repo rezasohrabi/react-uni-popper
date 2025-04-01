@@ -11,3 +11,5 @@ export type PositionType =
   | 'bottom-end'
   | 'left-start'
   | 'left-end';
+
+export type TimeoutRef = ReturnType<typeof setTimeout> | null;
