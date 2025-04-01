@@ -31,6 +31,7 @@ export interface TooltipProps
   open?: boolean;
   openDelay?: number;
   closeDelay?: number;
+  disableInteractive?: boolean;
   onOpenChange?: (open: boolean) => void;
 }
 
@@ -48,6 +49,7 @@ export interface TooltipProps
  * @param {number} [openDelay=300] - Delay in milliseconds before the tooltip opens.
  * @param {number} [closeDelay=200] - Delay in milliseconds before the tooltip closes.
  * @param {(open: boolean) => void} [onOpenChange] - Callback triggered when the open state changes.
+ * @param {boolean} [disableInteractive=false] - If true, disables interactive behavior for the tooltip.
  * @param {object} [props] - Additional props to pass to the tooltip container.
  *
  * @returns {React.ReactElement} The Tooltip component wrapping the child element(s).
@@ -67,6 +69,7 @@ const Tooltip = ({
   open,
   openDelay = 300,
   closeDelay = 200,
+  disableInteractive = false,
   onOpenChange,
   ...props
 }: TooltipProps): ReactElement => {
@@ -255,6 +258,16 @@ const Tooltip = ({
               inset: '0px auto auto 0px',
               ...floatingStyles,
             }}
+            onMouseEnter={
+              disableInteractive ? undefined : () => handleOpen(false)
+            }
+            onMouseLeave={
+              disableInteractive
+                ? undefined
+                : () => {
+                    handleClose(true);
+                  }
+            }
           >
             <div className={`headless-tooltip ${className}`} {...props}>
               {content}
