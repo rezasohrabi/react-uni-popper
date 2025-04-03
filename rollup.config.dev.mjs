@@ -1,32 +1,32 @@
-import resolve from "@rollup/plugin-node-resolve";
-import commonjs from "@rollup/plugin-commonjs";
-import typescript from "@rollup/plugin-typescript";
-import postcss from "rollup-plugin-postcss";
-import json from "@rollup/plugin-json";
-import dts from "rollup-plugin-dts";
-import serve from "rollup-plugin-serve";
-import replace from "@rollup/plugin-replace";
+import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+import typescript from '@rollup/plugin-typescript';
+import postcss from 'rollup-plugin-postcss';
+import json from '@rollup/plugin-json';
+import dts from 'rollup-plugin-dts';
+import serve from 'rollup-plugin-serve';
+import replace from '@rollup/plugin-replace';
 
-import pkg from "./package.json" assert { type: "json" };
-import livereload from "rollup-plugin-livereload";
+import pkg from './package.json' assert { type: 'json' };
+import livereload from 'rollup-plugin-livereload';
 
-const isDev = process.env.NODE_ENV === "development";
+const isDev = process.env.NODE_ENV === 'development';
 
 export default [
   {
-    input: "src/main.tsx",
+    input: 'src/index.dev.tsx',
     output: [
-      { file: pkg.main, format: "cjs", sourcemap: true },
+      { file: pkg.main, format: 'cjs', sourcemap: true },
       {
         file: pkg.module,
-        format: "esm",
+        format: 'esm',
         sourcemap: true,
       },
     ],
     plugins: [
       replace({
-        "process.env.NODE_ENV": JSON.stringify(
-          isDev ? "development" : "production"
+        'process.env.NODE_ENV': JSON.stringify(
+          isDev ? 'development' : 'production',
         ),
         preventAssignment: true,
       }),
@@ -34,20 +34,20 @@ export default [
       commonjs(),
       typescript({
         exclude: [
-          "**/*.test.tsx",
-          "**/*.test.ts",
-          "**/*.stories.ts",
-          "**/*.stories.tsx",
+          '**/*.test.tsx',
+          '**/*.test.ts',
+          '**/*.stories.ts',
+          '**/*.stories.tsx',
         ],
       }),
       postcss(),
       serve({
         open: true,
-        contentBase: ["dist", "."],
+        contentBase: ['dist', '.'],
         port: 3000,
       }),
       livereload({
-        watch: "dist",
+        watch: 'dist',
         port: 3000,
       }),
       json(),
@@ -55,10 +55,10 @@ export default [
     external: [],
   },
   {
-    input: "src/index.tsx",
+    input: 'src/index.tsx',
     output: {
       file: pkg.types,
-      format: "esm",
+      format: 'esm',
     },
     plugins: [dts()],
   },
