@@ -228,10 +228,22 @@ const Tooltip = ({
         }
       },
       'aria-describedby': tooltipId,
-      onMouseOver: () => handleOpen(true),
-      onMouseLeave: () => handleClose(true),
-      onFocus: () => handleOpen(false), // Open immediately on focus
-      onBlur: () => handleClose(false), // Close immediately on blur
+      onMouseOver: () => {
+        handleOpen(true);
+        childrenElement?.props.onMouseOver?.();
+      },
+      onMouseLeave: () => {
+        handleClose(true);
+        childrenElement?.props.onMouseLeave?.();
+      },
+      onFocus: () => {
+        handleOpen(false);
+        childrenElement?.props.onFocus?.();
+      },
+      onBlur: () => {
+        handleClose(false);
+        childrenElement?.props.onBlur?.();
+      },
       tabIndex: 0,
     }),
     [childrenElement, handleClose, handleOpen, refs, tooltipId],
