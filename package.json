@@ -6,7 +6,7 @@
   "module": "dist/index.js",
   "type": "module",
   "files": [
-    "build"
+    "dist"
   ],
   "types": "dist/index.d.ts",
   "scripts": {
@@ -16,6 +16,7 @@
     "test:watch": "vitest --config vitest.config.ts --watch",
     "lint": "eslint --ext .ts,.tsx src",
     "lint:fix": "eslint --ext .ts,.tsx src --fix",
+    "format": "prettier --write .",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "deploy-storybook": "gh-pages -d storybook-static",
