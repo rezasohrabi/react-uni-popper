@@ -44,6 +44,18 @@ export function Test() {
       >
         <button>left</button>
       </Tooltip>
+      <Tooltip
+        content="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        placement="top-start"
+      >
+        <button>top-start</button>
+      </Tooltip>
+      <Tooltip
+        content="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        placement="top-end"
+      >
+        <button>top-end</button>
+      </Tooltip>
     </div>
   );
 }
