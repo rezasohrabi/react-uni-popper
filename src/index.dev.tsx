@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 
 import Tooltip from './index';
 
+export default {};
 const longContent = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eu tempus velit, nec finibus libero. Vivamus sed ullamcorper nunc, porta placerat mi. Curabitur eu ligula nec diam commodo commodo. Pellentesque euismod libero nisi, ac consectetur lacus suscipit a. Pellentesque condimentum, dolor nec rutrum placerat, neque dolor euismod erat, in vehicula urna elit eu orci. Mauris consequat erat eu lacus luctus vulputate. Duis ac lectus mauris. Mauris sagittis dictum justo, facilisis porttitor nulla scelerisque fringilla.
 
 Donec et semper elit, rhoncus faucibus dui. Suspendisse sit amet rhoncus magna. Aenean tempus libero turpis, vel blandit diam lacinia in. Mauris euismod efficitur tellus et laoreet. Mauris tincidunt lacus a purus maximus luctus eget posuere risus. Curabitur molestie lorem ex, vel luctus tortor porta eget. Sed purus elit, mattis eu nunc a, dictum pretium ipsum. Duis sed finibus nulla, non consectetur magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque efficitur, ipsum nec vulputate mattis, risus augue feugiat quam, nec venenatis lorem est in nulla. Vestibulum sagittis at erat non placerat.
