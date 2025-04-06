@@ -18,7 +18,7 @@ import {
 } from '@floating-ui/react-dom';
 import { createPortal } from 'react-dom';
 
-export type PositionType =
+type PositionType =
   | 'top'
   | 'right'
   | 'bottom'
@@ -32,7 +32,7 @@ export type PositionType =
   | 'left-start'
   | 'left-end';
 
-export type TimeoutRef = ReturnType<typeof setTimeout> | null;
+type TimeoutRef = ReturnType<typeof setTimeout> | null;
 
 /**
  * Generates a unique identifier for a tooltip.
@@ -124,6 +124,7 @@ export interface TooltipProps
   closeDelay?: number;
   disableInteractive?: boolean;
   onOpenChange?: (open: boolean) => void;
+  portalContainer?: HTMLElement;
 }
 
 /**
@@ -141,6 +142,7 @@ export interface TooltipProps
  * @param {number} [closeDelay=200] - Delay in milliseconds before the tooltip closes.
  * @param {(open: boolean) => void} [onOpenChange] - Callback triggered when the open state changes.
  * @param {boolean} [disableInteractive=false] - If true, disables interactive behavior for the tooltip.
+ * @param {HTMLElement} [portalContainer] - The DOM element where the tooltip will be rendered.
  * @param {object} [props] - Additional props to pass to the tooltip container.
  *
  * @returns {React.ReactElement} The Tooltip component wrapping the child element(s).
@@ -162,6 +164,7 @@ function Tooltip({
   closeDelay = 200,
   disableInteractive = false,
   onOpenChange,
+  portalContainer,
   ...props
 }: TooltipProps): ReactElement {
   const [tooltipId] = useState(getId());
@@ -403,7 +406,7 @@ function Tooltip({
     <>
       {Trigger}
       {isOpenState && content && (
-        <Portal>
+        <Portal container={portalContainer}>
           <div
             className="headless-popper"
             ref={refs.setFloating}
