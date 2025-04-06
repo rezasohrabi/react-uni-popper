@@ -1,4 +1,3 @@
-import { defineConfig } from 'eslint/config';
 import globals from 'globals';
 import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
@@ -8,47 +7,54 @@ import jsxA11y from 'eslint-plugin-jsx-a11y';
 import configPrettier from 'eslint-config-prettier';
 import eslintPluginPrettier from 'eslint-plugin-prettier';
 import storybook from 'eslint-plugin-storybook';
+import reactRefresh from 'eslint-plugin-react-refresh';
 
-export default defineConfig([
-  {
-    files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'],
-    languageOptions: {
-      parserOptions: {
-        ecmaVersion: 'latest',
-        ecmaFeatures: {
-          jsx: true,
-        },
-      },
-      globals: {
-        ...globals.node,
-        ...globals.browser,
-        ...globals.es2021,
+export default tseslint.config({
+  files: ['**/*.{ts,tsx}'],
+  languageOptions: {
+    parserOptions: {
+      ecmaVersion: 'latest',
+      ecmaFeatures: {
+        jsx: true,
       },
     },
-    plugins: {
-      js,
-      react,
-      prettier: eslintPluginPrettier,
+    globals: {
+      ...globals.node,
+      ...globals.browser,
+      ...globals.es2021,
     },
-    settings: {
-      react: {
-        version: 'detect',
-      },
-    },
-    extends: [
-      'js/recommended',
-      react.configs.flat.recommended,
-      jsxA11y.flatConfigs.recommended,
-      reactHooks.configs['recommended-latest'],
-      storybook.configs['flat/recommended'],
-      configPrettier,
-    ],
-    ignores: [
-      '**/node_modules/**',
-      '**/dist/**',
-      '**/*.test.ts',
-      '**/*.test.tsx',
-    ],
   },
-  tseslint.configs.recommended,
-]);
+  plugins: {
+    js,
+    react,
+    'react-hooks': reactHooks,
+    'react-refresh': reactRefresh,
+    prettier: eslintPluginPrettier,
+  },
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
+  extends: [
+    js.configs.recommended,
+    ...tseslint.configs.recommended,
+    react.configs.flat.recommended,
+    jsxA11y.flatConfigs.recommended,
+    storybook.configs['flat/recommended'],
+    configPrettier,
+  ],
+  rules: {
+    ...reactHooks.configs.recommended.rules,
+  },
+  ignores: [
+    '**/node_modules/**',
+    '**/*.test.ts',
+    '**/*.test.tsx',
+    '**/.husky/**',
+    '**/.storybook/**',
+    '**/storybook-static/**',
+    '**/dist/**',
+    '**/docs/**',
+  ],
+});
