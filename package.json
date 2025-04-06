@@ -18,7 +18,7 @@
     "lint:fix": "eslint --ext .ts,.tsx src --fix",
     "format": "prettier --write .",
     "publish": "npm publish --access public",
-    "publish-patch": "pnpm lint:fix && pnpm test && pnpm build && pnpm publish",
+    "publish-patch": "npm version minor && pnpm lint:fix && pnpm test && pnpm build && pnpm publish",
     "publish-minor": "npm version minor && pnpm lint:fix && pnpm test && pnpm build && pnpm publish",
     "publish-major": "npm version major && pnpm lint:fix && pnpm test && pnpm build && pnpm publish",
     "storybook": "storybook dev -p 6006",
