@@ -14,11 +14,11 @@ export default [
   {
     input: 'src/index.tsx',
     output: [
-      { file: pkg.main, format: 'cjs', sourcemap: true },
+      { file: pkg.main, format: 'cjs', sourcemap: false },
       {
         file: pkg.module,
         format: 'esm',
-        sourcemap: true,
+        sourcemap: false,
       },
     ],
     plugins: [
@@ -26,20 +26,10 @@ export default [
       resolve(),
       commonjs(),
       typescript({
-        exclude: [
-          '**/*.test.tsx',
-          '**/*.test.ts',
-          '**/*.stories.ts',
-          '**/*.stories.tsx',
-          '**/stories/**',
-        ],
+        tsconfig: './tsconfig.build.json',
+        sourceMap: false,
       }),
-      postcss({
-        extensions: ['.css'],
-        extract: false,
-        inject: true,
-        minimize: true,
-      }),
+      postcss(),
       terser(),
       json(),
       analyze(),
