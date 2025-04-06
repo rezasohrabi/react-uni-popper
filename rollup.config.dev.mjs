@@ -33,12 +33,7 @@ export default [
       resolve(),
       commonjs(),
       typescript({
-        exclude: [
-          '**/*.test.tsx',
-          '**/*.test.ts',
-          '**/*.stories.ts',
-          '**/*.stories.tsx',
-        ],
+        tsconfig: './tsconfig.dev.json',
       }),
       postcss(),
       serve({
