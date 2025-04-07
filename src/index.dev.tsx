@@ -36,26 +36,70 @@ export function Test() {
       <Tooltip
         content="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
         placement="top"
+        style={{
+          backgroundColor: '#101828',
+          padding: '8px 12px',
+          color: 'white',
+          borderRadius: '8px',
+        }}
+        offset={0}
+        arrowSize={20}
+        arrow
       >
         <button>top</button>
       </Tooltip>
       <Tooltip
         content="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
         placement="left"
+        offset={0}
+        style={{
+          backgroundColor: '#101828',
+          padding: '8px 12px',
+          color: 'white',
+          borderRadius: '8px',
+        }}
+        arrow
       >
         <button>left</button>
       </Tooltip>
       <Tooltip
         content="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
         placement="top-start"
+        offset={0}
+        style={{
+          backgroundColor: '#101828',
+          padding: '8px 12px',
+          color: 'white',
+          borderRadius: '8px',
+        }}
+        arrow
       >
         <button>top-start</button>
       </Tooltip>
       <Tooltip
+        style={{
+          backgroundColor: '#101828',
+          padding: '8px 12px',
+          color: 'white',
+          borderRadius: '8px',
+        }}
+        offset={0}
+        arrow
         content="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
         placement="top-end"
       >
         <button>top-end</button>
+      </Tooltip>
+      <Tooltip
+        offset={0}
+        style={{
+          color: 'white',
+        }}
+        arrow
+        content="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        placement="bottom"
+      >
+        <button>bottom</button>
       </Tooltip>
     </div>
   );
