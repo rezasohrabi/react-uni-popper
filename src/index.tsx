@@ -15,6 +15,7 @@ import {
   offset as offsetMiddleware,
   shift,
   useFloating,
+  arrow as arrowMiddleware,
 } from '@floating-ui/react-dom';
 import { createPortal } from 'react-dom';
 
@@ -125,6 +126,8 @@ export interface TooltipProps
   disableInteractive?: boolean;
   onOpenChange?: (open: boolean) => void;
   portalContainer?: HTMLElement;
+  arrow?: boolean;
+  arrowSize?: number;
 }
 
 /**
@@ -143,7 +146,9 @@ export interface TooltipProps
  * @param {(open: boolean) => void} [onOpenChange] - Callback triggered when the open state changes.
  * @param {boolean} [disableInteractive=false] - If true, disables interactive behavior for the tooltip.
  * @param {HTMLElement} [portalContainer] - The DOM element where the tooltip will be rendered.
+ * @param {boolean} [arrow] - If true, adds an arrow to the tooltip.
  * @param {object} [props] - Additional props to pass to the tooltip container.
+ * @param {number} [arrowSize=12] - The size of the arrow.
  *
  * @returns {React.ReactElement} The Tooltip component wrapping the child element(s).
  *
@@ -165,12 +170,16 @@ function Tooltip({
   disableInteractive = false,
   onOpenChange,
   portalContainer,
+  arrow = false,
+  arrowSize = 12,
   ...props
 }: TooltipProps): ReactElement {
   const [tooltipId] = useState(getId());
   const [isOpen, setIsOpen] = useState(false);
   const openTimeout = useRef<TimeoutRef>(null);
   const closeTimeout = useRef<TimeoutRef>(null);
+
+  const arrowRef = useRef<HTMLDivElement | null>(null);
 
   /**
    * Configures the floating UI element with specified placement, strategy, and middleware.
@@ -189,16 +198,30 @@ function Tooltip({
    * @param {Object} offsetMiddleware.options - Configuration for the offset middleware.
    * @param {number} offsetMiddleware.options.mainAxis - The offset distance along the main axis.
    */
-  const { floatingStyles, refs } = useFloating({
+  const {
+    floatingStyles,
+    refs,
+    middlewareData,
+    placement: finalPlacement,
+  } = useFloating({
     placement,
     strategy: 'absolute',
     whileElementsMounted: autoUpdate,
     middleware: [
       flip(),
       shift(),
-      offsetMiddleware({
-        mainAxis: offset,
-      }),
+      arrow ? arrowMiddleware({ element: arrowRef }) : undefined,
+      /**
+       * Applies an offset to the floating element's position.
+       * When arrow is enabled, the offset is calculated using the formula:
+       * offset + (√(2 * arrowSize²) / 2)
+       * This formula accounts for the arrow's diagonal length when rotated 45°,
+       * ensuring proper spacing between the tooltip and its target.
+       * When arrow is disabled, uses the base offset value.
+       */
+      offsetMiddleware(
+        arrow ? offset + Math.sqrt(2 * arrowSize ** 2) / 2 : offset,
+      ),
     ],
   });
 
@@ -402,6 +425,52 @@ function Tooltip({
 
   const Trigger = cloneElement(childrenElement, childrenProps);
 
+  /**
+   * Calculates the CSS positioning styles for the tooltip arrow based on its placement.
+   *
+   * The arrow is positioned using a combination of absolute positioning and negative margins:
+   * - For x/y positioning, uses the coordinates provided by Floating UI's arrow middleware
+   * - For the side opposite to the tooltip placement, uses a negative margin of -arrowLen/2
+   *   This creates the effect of the arrow protruding from the tooltip by half its length
+   *
+   * @param {PositionType} placement - The tooltip placement (e.g. 'top', 'bottom-start', etc)
+   * @param {Object} arrowData - Arrow position data from Floating UI
+   * @param {number} [arrowData.x] - X coordinate for arrow positioning
+   * @param {number} [arrowData.y] - Y coordinate for arrow positioning
+   * @param {number} arrowLen - Length of the arrow in pixels
+   * @returns {React.CSSProperties} CSS styles object for arrow positioning
+   *
+   * @example
+   * // For a top placement with arrowLen = 12:
+   * // Returns styles that position arrow at bottom of tooltip
+   * // with negative margin of -6px (half the arrow length)
+   * getArrowPositionStyle('top', {x: 100, y: 50}, 12)
+   * // => { left: '100px', top: '50px', bottom: '-6px' }
+   */
+  function getArrowPositionStyle(
+    placement: PositionType,
+    arrowData: { x?: number; y?: number } = {},
+    arrowLen: number,
+  ): React.CSSProperties {
+    const side = placement.split('-')[0];
+    const staticSideMap = {
+      top: 'bottom',
+      right: 'left',
+      bottom: 'top',
+      left: 'right',
+    };
+
+    const style: React.CSSProperties = {
+      left: arrowData.x != null ? `${arrowData.x}px` : '',
+      top: arrowData.y != null ? `${arrowData.y}px` : '',
+      right: '',
+      bottom: '',
+      [staticSideMap[side]]: `${-arrowLen / 2}px`,
+    };
+
+    return style;
+  }
+
   return (
     <>
       {Trigger}
@@ -431,6 +500,26 @@ function Tooltip({
             }
           >
             <div className={`headless-tooltip ${className}`} {...props}>
+              {arrow && (
+                <div
+                  ref={arrowRef}
+                  className="tooltip-arrow"
+                  style={{
+                    zIndex: -1,
+                    position: 'absolute',
+                    width: arrowSize,
+                    height: arrowSize,
+                    pointerEvents: 'none',
+                    background: 'inherit',
+                    transform: 'rotate(45deg)',
+                    ...getArrowPositionStyle(
+                      finalPlacement,
+                      middlewareData.arrow,
+                      arrowSize,
+                    ),
+                  }}
+                />
+              )}
               {content}
             </div>
           </div>
