@@ -116,7 +116,7 @@ export interface TooltipProps
   extends Omit<HTMLAttributes<HTMLDivElement>, 'content'> {
   children: React.ReactNode;
   className?: string;
-  content: React.ReactElement | string;
+  content: React.ReactNode;
   placement?: PositionType;
   offset?: number;
   zIndex?: number;
