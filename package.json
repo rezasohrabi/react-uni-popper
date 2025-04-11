@@ -1,6 +1,6 @@
 {
   "name": "headless-tooltip",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "headless tooltip for projects that leverages headlessui/react",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
@@ -43,7 +43,7 @@
     "type": "git",
     "url": "https://github.com/rezasohrabi/headlessui-tooltip.git"
   },
-  "homepage": "https://tooltip.com",
+  "homepage": "https://rezasohrabi.github.io/headless-tooltip",
   "peerDependencies": {
     "react": "^17.0.0 || ^18.0.0 || ^19.0.0",
     "react-dom": "^17.0.0 || ^18.0.0 || ^19.0.0"
