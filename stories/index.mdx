@@ -1,0 +1,51 @@
+import { Meta, Controls } from '@storybook/blocks';
+
+import * as TooltipStories from './index.stories';
+
+<Meta of={TooltipStories} />
+
+# Definition
+
+Tooltip is a floating interactive element that appears when hovering over or focusing on content.
+
+You can place text, HTML elements, and interactive components inside of a tooltip.
+
+Tooltips are often used for providing additional context, help text, or detailed information about UI elements.
+
+## Usage
+
+The component comes in different configurations such as `placement`, `arrow`, `offset`, and `interactive` which you can use to alter the look, position and behavior of the tooltip.
+
+> **Note:** The tooltip is headless by default, meaning it has no built-in styles. The styles shown in the later stories are just for demonstration purposes. You can customize the appearance using your own CSS classes or utility classes like Tailwind CSS.
+
+```jsx
+import Tooltip from 'headless-tooltip';
+
+function Example() {
+  return (
+    <Tooltip
+      content={<span>This is a tooltip message</span>}
+      placement="bottom"
+      arrow
+      className="max-w-80 rounded-lg bg-gray-900 px-3 py-2 text-xs font-normal text-white"
+    >
+      <button>Hover me</button>
+    </Tooltip>
+  );
+}
+```
+
+## Accessibility
+
+This tooltip implementation follows the [WAI-ARIA Tooltip Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/) to ensure accessibility compliance. Key features include:
+
+- Proper keyboard interaction (Escape to dismiss)
+- Appropriate ARIA roles and properties
+- Focus management
+- Support for both hover and focus triggers
+
+## Props
+
+Tooltip has the following properties:
+
+<Controls />
