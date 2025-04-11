@@ -19,7 +19,7 @@ import {
 } from '@floating-ui/react-dom';
 import { createPortal } from 'react-dom';
 
-type PositionType =
+export type PositionType =
   | 'top'
   | 'right'
   | 'bottom'
