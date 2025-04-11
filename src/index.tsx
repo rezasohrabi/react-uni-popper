@@ -19,7 +19,7 @@ import {
 } from '@floating-ui/react-dom';
 import { createPortal } from 'react-dom';
 
-type PositionType =
+export type PositionType =
   | 'top'
   | 'right'
   | 'bottom'
@@ -139,7 +139,7 @@ export interface TooltipProps
  * @param {string} [placement='top'] - The preferred placement of the tooltip relative to the trigger element.
  * @param {string} [className=''] - Additional CSS classes to apply to the tooltip.
  * @param {number} [offset=4] - The offset distance between the tooltip and the trigger element.
- * @param {number} [zIndex] - The z-index value for the tooltip.
+ * @param {number} [zIndex] - The z-index value for the tooltip. Should be provided based on your application's z-index hierarchy.
  * @param {boolean} [open] - Controls the open state of the tooltip (for controlled mode).
  * @param {number} [openDelay=300] - Delay in milliseconds before the tooltip opens.
  * @param {number} [closeDelay=200] - Delay in milliseconds before the tooltip closes.
@@ -147,15 +147,17 @@ export interface TooltipProps
  * @param {boolean} [disableInteractive=false] - If true, disables interactive behavior for the tooltip.
  * @param {HTMLElement} [portalContainer] - The DOM element where the tooltip will be rendered.
  * @param {boolean} [arrow] - If true, adds an arrow to the tooltip.
- * @param {object} [props] - Additional props to pass to the tooltip container.
  * @param {number} [arrowSize=12] - The size of the arrow.
+ * @param {object} [props] - Additional props to pass to the tooltip container.
  *
  * @returns {React.ReactElement} The Tooltip component wrapping the child element(s).
  *
  * @example
+ * ```
  * <Tooltip content="This is a tooltip" placement="bottom">
  *   <button>Hover me</button>
  * </Tooltip>
+ * ```
  */
 function Tooltip({
   children,
@@ -482,7 +484,7 @@ function Tooltip({
             id={tooltipId}
             role="tooltip"
             style={{
-              zIndex: zIndex || 50,
+              zIndex: zIndex,
               position: 'absolute',
               top: 0,
               left: 0,
