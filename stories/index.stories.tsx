@@ -27,6 +27,7 @@ export const WithCustomPlacement: Story = {
     content: 'Tooltip on the right',
     placement: 'right',
     children: <button>Hover me</button>,
+    className: 'styled-tooltip',
   },
 };
 
@@ -35,6 +36,7 @@ export const WithArrow: Story = {
     content: 'Tooltip with arrow',
     arrow: true,
     children: <button>Hover me</button>,
+    className: 'styled-tooltip',
   },
 };
 
@@ -43,6 +45,7 @@ export const WithCustomOffset: Story = {
     content: 'Tooltip with custom offset',
     offset: 20,
     children: <button>Hover me</button>,
+    className: 'styled-tooltip',
   },
 };
 
@@ -52,6 +55,7 @@ export const WithCustomDelay: Story = {
     openDelay: 500,
     closeDelay: 1000,
     children: <button>Hover me</button>,
+    className: 'styled-tooltip',
   },
 };
 
@@ -60,6 +64,7 @@ export const WithCustomZIndex: Story = {
     content: 'Tooltip with custom z-index',
     zIndex: 1500,
     children: <button>Hover me</button>,
+    className: 'styled-tooltip',
   },
 };
 
@@ -78,6 +83,7 @@ export const WithCustomStyling: Story = {
       </div>
     ),
     children: <button>Hover me</button>,
+    className: 'styled-tooltip',
   },
 };
 
@@ -91,6 +97,7 @@ export const WithInteractiveContent: Story = {
     ),
     disableInteractive: false,
     children: <button>Hover me</button>,
+    className: 'styled-tooltip',
   },
 };
 
@@ -99,6 +106,7 @@ export const WithControlledState: Story = {
     content: 'Controlled tooltip',
     open: true,
     children: <button>Controlled tooltip</button>,
+    className: 'styled-tooltip',
   },
 };
 
@@ -130,6 +138,7 @@ export const WithDifferentPlacements: Story = {
           key={placement}
           content={`Tooltip on ${placement}`}
           placement={placement as PositionType}
+          className="styled-tooltip"
         >
           <button className="placement-button">{placement}</button>
         </Tooltip>
