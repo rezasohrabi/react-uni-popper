@@ -36,8 +36,47 @@ button:focus {
   color: #ffffff; /* text-white */
 }
 
+.bg-gray-900 {
+  background-color: #111827; /* bg-gray-900 */
+}
+
 .bg-indigo-600 {
   background-color: #4f46e5;
+}
+
+.bg-indigo-700 {
+  background-color: #4338ca;
+}
+.bg-indigo-800 {
+  background-color: #3730a3;
+}
+.bg-indigo-900 {
+  background-color: #312e81;
+}
+
+.rounded-lg {
+  border-radius: 0.5rem; /* rounded-lg */
+}
+.rounded-full {
+  border-radius: 9999px; /* rounded-full */
+}
+.rounded-md {
+  border-radius: 0.375rem; /* rounded-md */
+}
+.rounded-sm {
+  border-radius: 0.125rem; /* rounded-sm */
+}
+.rounded-xl {
+  border-radius: 0.75rem; /* rounded-xl */
+}
+.rounded-2xl {
+  border-radius: 1rem; /* rounded-2xl */
+}
+.rounded-3xl {
+  border-radius: 1.5rem; /* rounded-3xl */
+}
+.rounded-4xl {
+  border-radius: 2rem; /* rounded-4xl */
 }
 
 .text-white {

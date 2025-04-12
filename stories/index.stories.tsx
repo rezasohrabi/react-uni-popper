@@ -37,6 +37,7 @@ export const WithArrow: Story = {
     arrow: true,
     children: <button>Hover me</button>,
     className: 'styled-tooltip',
+    arrowClassName: 'bg-gray-900',
   },
 };
 
@@ -73,6 +74,8 @@ export const WithCustomStyling: Story = {
     content: <div>Custom styled tooltip</div>,
     children: <button>Hover me</button>,
     className: 'bg-indigo-600 text-white shadow-xl text-sm px-4 py-2',
+    arrow: true,
+    arrowClassName: 'bg-indigo-700',
   },
 };
 
@@ -81,7 +84,15 @@ export const WithInteractiveContent: Story = {
     content: (
       <div>
         <p>Interactive tooltip content</p>
-        <button onClick={() => alert('Button clicked!')}>Click me</button>
+        <button
+          onClick={() => alert('Button clicked!')}
+          style={{
+            backgroundColor: '#dc3912',
+            width: '100%',
+          }}
+        >
+          Click me
+        </button>
       </div>
     ),
     disableInteractive: false,
