@@ -35,3 +35,71 @@ button:focus {
   font-weight: 400; /* font-normal */
   color: #ffffff; /* text-white */
 }
+
+.bg-gray-900 {
+  background-color: #111827; /* bg-gray-900 */
+}
+
+.bg-indigo-600 {
+  background-color: #4f46e5;
+}
+
+.bg-indigo-700 {
+  background-color: #4338ca;
+}
+.bg-indigo-800 {
+  background-color: #3730a3;
+}
+.bg-indigo-900 {
+  background-color: #312e81;
+}
+
+.rounded-lg {
+  border-radius: 0.5rem; /* rounded-lg */
+}
+.rounded-full {
+  border-radius: 9999px; /* rounded-full */
+}
+.rounded-md {
+  border-radius: 0.375rem; /* rounded-md */
+}
+.rounded-sm {
+  border-radius: 0.125rem; /* rounded-sm */
+}
+.rounded-xl {
+  border-radius: 0.75rem; /* rounded-xl */
+}
+.rounded-2xl {
+  border-radius: 1rem; /* rounded-2xl */
+}
+.rounded-3xl {
+  border-radius: 1.5rem; /* rounded-3xl */
+}
+.rounded-4xl {
+  border-radius: 2rem; /* rounded-4xl */
+}
+
+.text-white {
+  color: #ffffff;
+}
+
+.text-sm {
+  font-size: 0.875rem; /* 14px */
+  line-height: 1.25rem; /* 20px */
+}
+
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.py-2 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.shadow-xl {
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}

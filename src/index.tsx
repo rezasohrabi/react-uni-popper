@@ -128,6 +128,7 @@ export interface TooltipProps
   portalContainer?: HTMLElement;
   arrow?: boolean;
   arrowSize?: number;
+  arrowClassName?: string;
 }
 
 /**
@@ -148,6 +149,7 @@ export interface TooltipProps
  * @param {HTMLElement} [portalContainer] - The DOM element where the tooltip will be rendered.
  * @param {boolean} [arrow] - If true, adds an arrow to the tooltip.
  * @param {number} [arrowSize=12] - The size of the arrow.
+ * @param {string} [arrowClassName=''] - Additional CSS classes to apply to the arrow.
  * @param {object} [props] - Additional props to pass to the tooltip container.
  *
  * @returns {React.ReactElement} The Tooltip component wrapping the child element(s).
@@ -174,6 +176,7 @@ function Tooltip({
   portalContainer,
   arrow = false,
   arrowSize = 12,
+  arrowClassName,
   ...props
 }: TooltipProps): ReactElement {
   const [tooltipId] = useState(getId());
@@ -403,7 +406,7 @@ function Tooltip({
           (childRef as React.MutableRefObject<typeof node>).current = node;
         }
       },
-      'aria-describedby': tooltipId,
+      'aria-describedby': isOpenState ? tooltipId : undefined,
       onMouseOver: () => {
         handleOpen(true);
         childrenElement?.props.onMouseOver?.();
@@ -422,7 +425,7 @@ function Tooltip({
       },
       tabIndex: 0,
     }),
-    [childrenElement, handleClose, handleOpen, refs, tooltipId],
+    [childrenElement, handleClose, handleOpen, isOpenState, refs, tooltipId],
   );
 
   const Trigger = cloneElement(childrenElement, childrenProps);
@@ -505,14 +508,13 @@ function Tooltip({
               {arrow && (
                 <div
                   ref={arrowRef}
-                  className="tooltip-arrow"
+                  className={`headless-tooltip-arrow ${arrowClassName}`}
                   style={{
                     zIndex: -1,
                     position: 'absolute',
+                    pointerEvents: 'none',
                     width: arrowSize,
                     height: arrowSize,
-                    pointerEvents: 'none',
-                    background: 'inherit',
                     transform: 'rotate(45deg)',
                     ...getArrowPositionStyle(
                       finalPlacement,
