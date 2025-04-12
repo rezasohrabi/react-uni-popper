@@ -6,6 +6,7 @@ addons.setConfig({
   theme: {
     ...themes.light,
     brandTitle: 'Headless-Tooltip',
+
     brandTarget: '_self', // Opens the link in the same tab
   },
 });

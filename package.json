@@ -1,7 +1,7 @@
 {
   "name": "headless-tooltip",
   "version": "0.2.7",
-  "description": "headless tooltip for projects that leverages headlessui/react",
+  "description": "💬 Tooltips without the tears — a headless React tooltip that just works.",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
   "type": "module",
