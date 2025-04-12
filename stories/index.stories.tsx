@@ -52,7 +52,7 @@ export const WithCustomOffset: Story = {
 export const WithCustomDelay: Story = {
   args: {
     content: 'Tooltip with custom delay',
-    openDelay: 500,
+    openDelay: 800,
     closeDelay: 1000,
     children: <button>Hover me</button>,
     className: 'styled-tooltip',
@@ -70,20 +70,9 @@ export const WithCustomZIndex: Story = {
 
 export const WithCustomStyling: Story = {
   args: {
-    content: (
-      <div
-        style={{
-          padding: '10px',
-          background: '#333',
-          color: 'white',
-          borderRadius: '4px',
-        }}
-      >
-        Custom styled tooltip
-      </div>
-    ),
+    content: <div>Custom styled tooltip</div>,
     children: <button>Hover me</button>,
-    className: 'styled-tooltip',
+    className: 'bg-indigo-600 text-white shadow-xl text-sm px-4 py-2',
   },
 };
 
@@ -109,15 +98,15 @@ export const WithControlledState: Story = {
     className: 'styled-tooltip',
   },
 };
-
 export const WithDifferentPlacements: Story = {
   render: () => (
     <div
       style={{
         display: 'flex',
-        gap: '20px',
         flexWrap: 'wrap',
         justifyContent: 'center',
+        gap: '60px', // more gap between buttons
+        padding: '40px', // avoid edge collisions
       }}
     >
       {[
@@ -134,14 +123,25 @@ export const WithDifferentPlacements: Story = {
         'left-start',
         'left-end',
       ].map((placement) => (
-        <Tooltip
+        <div
           key={placement}
-          content={`Tooltip on ${placement}`}
-          placement={placement as PositionType}
-          className="styled-tooltip"
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            minWidth: '120px', // minimum space for tooltip + button
+            minHeight: '120px', // avoid overlapping vertically
+            position: 'relative',
+          }}
         >
-          <button className="placement-button">{placement}</button>
-        </Tooltip>
+          <Tooltip
+            content={`Tooltip on ${placement}`}
+            placement={placement as PositionType}
+            className="styled-tooltip"
+          >
+            <button className="placement-button">{placement}</button>
+          </Tooltip>
+        </div>
       ))}
     </div>
   ),
