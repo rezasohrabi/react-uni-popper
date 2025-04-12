@@ -403,7 +403,7 @@ function Tooltip({
           (childRef as React.MutableRefObject<typeof node>).current = node;
         }
       },
-      'aria-describedby': tooltipId,
+      'aria-describedby': isOpenState ? tooltipId : undefined,
       onMouseOver: () => {
         handleOpen(true);
         childrenElement?.props.onMouseOver?.();
