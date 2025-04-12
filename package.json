@@ -1,6 +1,6 @@
 {
   "name": "headless-tooltip",
-  "version": "0.2.6",
+  "version": "0.2.8",
   "description": "headless tooltip for projects that leverages headlessui/react",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
