@@ -6,7 +6,8 @@ addons.setConfig({
   theme: {
     ...themes.light,
     brandTitle: 'Headless-Tooltip',
-
+    brandUrl: 'https://github.com/rezasohrabi/headless-tooltip',
+    brandImage: '/headless-tooltip.png',
     brandTarget: '_self', // Opens the link in the same tab
   },
 });
