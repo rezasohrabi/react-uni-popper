@@ -11,7 +11,7 @@ import {
 } from 'vitest';
 import '@testing-library/jest-dom';
 
-import Tooltip from './index';
+import Tooltip from '../src/index';
 
 describe('Tooltip', () => {
   beforeEach(() => {
