@@ -423,7 +423,7 @@ function Tooltip({
         handleClose(false);
         childrenElement?.props.onBlur?.();
       },
-      tabIndex: 0,
+      tabIndex: childrenElement?.props.tabIndex || 0,
     }),
     [childrenElement, handleClose, handleOpen, isOpenState, refs, tooltipId],
   );
