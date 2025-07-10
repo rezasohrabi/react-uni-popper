@@ -91,6 +91,39 @@ function useOnEscape(callback: () => void, isOpen: boolean) {
   }, [callback, isOpen]);
 }
 
+function getReactMajorVersion(): number {
+  const version = React.version?.split('.')[0];
+  return parseInt(version || '0', 10);
+}
+
+/**
+ * Check if a component is a forward ref component.
+ * @param Component
+ * @returns {boolean}
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function isForwardRefComponent(Component: any): boolean {
+  const version = getReactMajorVersion();
+
+  if (version >= 19) {
+    // React 19+ forwardRef may not be used at all; ref is passed directly
+    // There's no reliable way to detect if component accepts ref
+    // So just assume it *might* accept ref
+    return true;
+  }
+
+  // React <= 18 use the $$typeof symbol check
+  const forwardRefSymbol =
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (React as any).ForwardRef || Symbol.for('react.forward_ref');
+
+  return (
+    typeof Component === 'object' &&
+    Component !== null &&
+    Component.type.$$typeof === forwardRefSymbol
+  );
+}
+
 export interface TooltipProps
   extends Omit<HTMLAttributes<HTMLDivElement>, 'content'> {
   children: React.ReactNode;
@@ -208,39 +241,6 @@ function Tooltip({
       ),
     ],
   });
-
-  function getReactMajorVersion(): number {
-    const version = React.version?.split('.')[0];
-    return parseInt(version || '0', 10);
-  }
-
-  /**
-   * Check if a component is a forward ref component.
-   * @param Component
-   * @returns {boolean}
-   */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  function isForwardRefComponent(Component: any): boolean {
-    const version = getReactMajorVersion();
-
-    if (version >= 19) {
-      // React 19+ forwardRef may not be used at all; ref is passed directly
-      // There's no reliable way to detect if component accepts ref
-      // So just assume it *might* accept ref
-      return true;
-    }
-
-    // React <= 18 use the $$typeof symbol check
-    const forwardRefSymbol =
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (React as any).ForwardRef || Symbol.for('react.forward_ref');
-
-    return (
-      typeof Component === 'object' &&
-      Component !== null &&
-      Component.type.$$typeof === forwardRefSymbol
-    );
-  }
 
   /**
    * Memoized computation of the children element.
