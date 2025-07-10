@@ -30,6 +30,10 @@ export function Test() {
       <Tooltip
         content="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
         placement="bottom"
+        style={{
+          backgroundColor: 'green',
+          color: 'white',
+        }}
       >
         <button>bottom</button>
       </Tooltip>
@@ -45,6 +49,7 @@ export function Test() {
         offset={0}
         arrowSize={20}
         arrow
+        arrowClassName="bg-black-500"
       >
         <button>top</button>
       </Tooltip>
@@ -59,6 +64,7 @@ export function Test() {
           borderRadius: '8px',
         }}
         arrow
+        arrowClassName="bg-black-500"
       >
         <button>left</button>
       </Tooltip>
@@ -72,6 +78,7 @@ export function Test() {
           color: 'white',
           borderRadius: '8px',
         }}
+        arrowClassName="bg-black-500"
         arrow
       >
         <button>top-start</button>
@@ -85,6 +92,7 @@ export function Test() {
         }}
         offset={0}
         arrow
+        arrowClassName="bg-black-500"
         content="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
         placement="top-end"
       >
@@ -94,8 +102,10 @@ export function Test() {
         offset={0}
         style={{
           color: 'white',
+          backgroundColor: '#000000',
         }}
         arrow
+        arrowClassName="bg-black-500"
         content="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
         placement="bottom"
       >
