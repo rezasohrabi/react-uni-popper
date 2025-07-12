@@ -1,7 +1,7 @@
 {
-  "name": "headless-tooltip",
-  "version": "0.2.9",
-  "description": "A minimal, accessible, and unstyled tooltip component for React",
+  "name": "react-uni-popper",
+  "version": "1.0.0",
+  "description": "A universal, headless React popper component powered by Floating UI. Build tooltips, dropdowns, selects, comboboxes, and more — all with one flexible component.",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
   "type": "module",
@@ -27,12 +27,13 @@
     "prepare": "husky"
   },
   "keywords": [
-    "tooltip",
-    "react-tooltip",
-    "headless-tooltip",
-    "headlessui-tooltip",
-    "headlessui-react-tooltip",
-    "tooltip-component",
+    "popper",
+    "react-popper",
+    "react-floating-ui",
+    "floating-ui",
+    "react-popper-component",
+    "react-uni-popper",
+    "headlessui-popper",
     "react-component",
     "component",
     "react"
@@ -41,9 +42,8 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/rezasohrabi/headlessui-tooltip.git"
+    "url": "https://github.com/rezasohrabi/react-uni-popper.git"
   },
-  "homepage": "https://rezasohrabi.github.io/headless-tooltip",
   "peerDependencies": {
     "react": "^17.0.0 || ^18.0.0 || ^19.0.0",
     "react-dom": "^17.0.0 || ^18.0.0 || ^19.0.0"
