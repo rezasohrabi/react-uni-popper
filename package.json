@@ -1,6 +1,6 @@
 {
   "name": "react-uni-popper",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A universal, headless React popper component powered by Floating UI. Build tooltips, dropdowns, selects, comboboxes, and more — all with one flexible component.",
   "main": "dist/index.cjs",
   "module": "dist/index.js",

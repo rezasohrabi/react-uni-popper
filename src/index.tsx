@@ -48,7 +48,7 @@ export type ReactUniPopperProps = Omit<
   'children'
 > & {
   portalContainer?: HTMLElement;
-  reference?: HTMLElement;
+  reference: HTMLElement | null;
   zIndex?: number;
   placement?: PositionType;
   offset?: number;
