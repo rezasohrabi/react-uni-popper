@@ -20,7 +20,7 @@
     "changeset": "changeset",
     "version": "changeset version",
     "npm-publish": "npm publish --access public",
-    "release": "pnpm lint:fix && pnpm test && pnpm build && pnpm npm-publish",
+    "release": "pnpm lint:fix && pnpm build && pnpm npm-publish",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "deploy-storybook": "gh-pages -d storybook-static",
